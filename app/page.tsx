@@ -1,35 +1,27 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic"; // ✅ Dynamic Import to avoid SSR issues
 import Footer from "@/app/components/Footer";
-import Lottie, { type LottieComponentProps } from "lottie-react";
 import Image from "next/image";
 
+// ✅ Dynamically import Lottie to run only on the client
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+
 const Home = () => {
-  // Define the type for Lottie animation data
-  type AnimationData = LottieComponentProps["animationData"];
+  const [animationData, setAnimationData] = useState<any>(null);
+  const [animationData2, setAnimationData2] = useState<any>(null);
+  const [animationData3, setAnimationData3] = useState<any>(null);
 
-  // State for animations with proper typing
-  const [animationData, setAnimationData] = useState<AnimationData | null>(
-    null
-  );
-  const [animationData2, setAnimationData2] = useState<AnimationData | null>(
-    null
-  );
-  const [animationData3, setAnimationData3] = useState<AnimationData | null>(
-    null
-  );
-
-  // Dynamically import animations to prevent SSR issues
   useEffect(() => {
     import("@/public/animation.json").then((data) =>
-      setAnimationData(data.default as AnimationData)
+      setAnimationData(data.default)
     );
     import("@/public/animation2.json").then((data) =>
-      setAnimationData2(data.default as AnimationData)
+      setAnimationData2(data.default)
     );
     import("@/public/animation3.json").then((data) =>
-      setAnimationData3(data.default as AnimationData)
+      setAnimationData3(data.default)
     );
   }, []);
 
@@ -46,7 +38,7 @@ const Home = () => {
             effortlessly. With intuitive features and real-time insights,
             achieving your financial goals has never been easier.
           </p>
-          <button className="relative flex h-10 w-40 items-center justify-center overflow-hidden bg-gray-800 text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-cyan-400 before:duration-500 before:ease-out hover:shadow-cyan-400 hover:before:h-56 hover:before:w-56 rounded-lg cursor-pointer">
+          <button className="relative flex h-10 w-40 items-center justify-center overflow-hidden bg-gray-800 text-white shadow-2xl transition-all hover:shadow-cyan-400 rounded-lg cursor-pointer">
             <span className="relative z-10">Join now</span>
           </button>
         </div>
@@ -67,6 +59,7 @@ const Home = () => {
             Unlock Your Financial Potential with Our Comprehensive Feature Set
           </h1>
           <div className="flex gap-8 flex-wrap md:flex-nowrap">
+            {/* Feature 1 */}
             <div className="flex items-center justify-center flex-col gap-4">
               {animationData ? (
                 <Lottie className="w-56 h-56" animationData={animationData} />
@@ -74,27 +67,29 @@ const Home = () => {
                 <p>Loading animation...</p>
               )}
               <h2 className="text-2xl font-bold">
-                Take Control of Your Finances with Our Innovative Tools
+                Take Control of Your Finances
               </h2>
               <p>
                 Our app offers robust budget planning features to help you
                 manage your money effectively.
               </p>
             </div>
+
+            {/* Feature 2 */}
             <div className="flex items-center justify-center flex-col gap-4">
               {animationData2 ? (
                 <Lottie className="w-56 h-56" animationData={animationData2} />
               ) : (
                 <p>Loading animation...</p>
               )}
-              <h2 className="text-2xl font-bold">
-                Categorize Your Expenses for Better Financial Insights
-              </h2>
+              <h2 className="text-2xl font-bold">Categorize Your Expenses</h2>
               <p>
                 Easily set financial goals and track your progress towards
                 achieving them.
               </p>
             </div>
+
+            {/* Feature 3 */}
             <div className="flex items-center justify-center flex-col gap-4">
               {animationData3 ? (
                 <Lottie className="w-56 h-56" animationData={animationData3} />
@@ -102,7 +97,7 @@ const Home = () => {
                 <p>Loading animation...</p>
               )}
               <h2 className="text-2xl font-bold">
-                Set and Achieve Your Financial Goals with Ease
+                Achieve Your Financial Goals
               </h2>
               <p>
                 Our expense categorization feature provides clarity on your
