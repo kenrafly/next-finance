@@ -1,4 +1,4 @@
-import { getUser } from "@/app/api/financial-records/route";
+import { getUser } from "@/lib/actions/common";
 import Balance from "@/app/components/Balance";
 
 import React from "react";

@@ -1,6 +1,6 @@
 import React from "react";
 import Wallet from "@/app/components/Wallet";
-import { getUser } from "@/app/api/financial-records/route";
+import { getUser } from "@/lib/actions/common";
 
 const page = async () => {
   const user = await getUser();
