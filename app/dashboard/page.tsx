@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardData from "../components/DashboardData";
+import DashboardData from "@/app/components/DashboardData";
 
 const page = () => {
   return (
